@@ -48,54 +48,8 @@ userSchema.methods.removeFromCart = function(productId) {
   return this.save()
 }
 
-// const getDb = require("../util/database").getDb;
-// const mongodb = require("mongodb");
-// const ObjectId = mongodb.ObjectId;
-// class User {
-//   constructor(userName, email, cart, id) {
-//     this.name = userName;
-//     this.email = email;
-//     this.cart = cart;
-//     this._id = id;
-//   }
-
-//   static findById(userId) {
-//     const db = getDb();
-//     return db.collection("users").findOne({ _id: new ObjectId(userId) });
-//   }
-
-
-//   addOrder() {
-//     const db = getDb();
-//     return this.getCart()
-//       .then((products) => {
-//         const order = {
-//           items: products,
-//           user: {
-//             _id: new ObjectId(this._id),
-//             name: this.name,
-//           },
-//         };
-//         return db.collection("orders").insertOne(order);
-//       })
-//       .then((result) => {
-//         this.cart = { items: [] };
-//         return db
-//           .collection("users")
-//           .updateOne(
-//             { _id: new ObjectId(this._id) },
-//             { $set: { cart: { items: [] } } }
-//           );
-//       });
-//   }
-
-//   getOrders() {
-//     const db = getDb();
-//     return db
-//       .collection("orders")
-//       .find({ "user._id": new ObjectId(this._id) })
-//       .toArray();
-//   }
-// }
-
+userSchema.methods.clearCart = function() {
+  this.cart = {items: []};
+  return this.save()
+}
 module.exports = mongoose.model('User',userSchema);
