@@ -1,5 +1,7 @@
 const Product = require("../models/product");
 
+const Temp = require("../models/temp");
+
 exports.getAddProduct = (req, res, next) => {
   res.render("admin/edit-product", {
     pageTitle: "Add Product",
@@ -30,6 +32,20 @@ exports.postAddProduct = (req, res, next) => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+exports.postTemp = (req,res,next) =>{
+    console.log('-->', req.body);
+    const temp = new Temp({
+      name: req.body.name,
+      temperature: req.body.temperature
+    })
+    temp.save().then((result) =>{
+      console.log('saved temp data in database');
+      res.send('sentttt')
+    }).catch(err =>{
+      console.log(err);
+    })
 };
 
 exports.getProducts = (req, res, next) => {
