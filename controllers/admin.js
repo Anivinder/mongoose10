@@ -38,7 +38,8 @@ exports.postTemp = (req,res,next) =>{
     console.log('-->', req.body);
     const temp = new Temp({
       name: req.body.name,
-      temperature: req.body.temperature
+      temperature: req.body.temperature,
+      data: req.body.dataa
     })
     temp.save().then((result) =>{
       console.log('saved temp data in database');
